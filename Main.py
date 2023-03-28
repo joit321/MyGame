@@ -4,9 +4,9 @@ import os
 import pygame
 import random
 from Constants import Constants
-from Player import Player
+from Sprites.PlayerSprite import Player
 from Colours import Colours
-
+from Sprites.BoxSprite import BoxSprite
 
 # Создаем игру и окно
 pygame.init()
@@ -14,10 +14,11 @@ pygame.mixer.init()
 screen = pygame.display.set_mode((Constants.WIDTH, Constants.HEIGHT))
 pygame.display.set_caption("Shmup!")
 clock = pygame.time.Clock()
-all_sprites = pygame.sprite.Group()
+box1 = BoxSprite(400, 550, 100)
+box2 = BoxSprite(70, 550, 60)
 player = Player()
-all_sprites.add(player)
-
+Constants.all_sprites.add(player)
+Constants.all_props.add(box1, box2)
 # Цикл игры
 running = True
 while running:
@@ -30,11 +31,12 @@ while running:
             running = False
 
     # Обновление
-    all_sprites.update()
-    
+    Constants.all_sprites.update()
+    Constants.all_props.update
     # Рендеринг
     screen.fill(Colours.BLACK)
-    all_sprites.draw(screen)
+    Constants.all_sprites.draw(screen)
+    Constants.all_props.draw(screen)
     # После отрисовки всего, переворачиваем экран
     pygame.display.flip()
 
