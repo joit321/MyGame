@@ -1,42 +1,47 @@
-# Игра Shmup - 1 часть
-# Cпрайт игрока и управление
-import os
+#кликер на питоне
 import pygame
 import random
 from Constants import Constants
-from Sprites.PlayerSprite import Player
 from Colours import Colours
-from Sprites.BoxSprite import BoxSprite
+from Player import Player            
+
+font_name = pygame.font.match_font('arial')
+def draw_text(surf, text, size, x, y):
+    font = pygame.font.Font(font_name, size)
+    text_surface = font.render(text, True, Colours.WHITE)
+    text_rect = text_surface.get_rect()
+    text_rect.midtop = (x, y)
+    surf.blit(text_surface, text_rect)
 
 # Создаем игру и окно
 pygame.init()
 pygame.mixer.init()
 screen = pygame.display.set_mode((Constants.WIDTH, Constants.HEIGHT))
-pygame.display.set_caption("Shmup!")
+pygame.display.set_caption("кликер")
 clock = pygame.time.Clock()
-box1 = BoxSprite(400, 550, 100)
-box2 = BoxSprite(70, 550, 60)
 player = Player()
 Constants.all_sprites.add(player)
-Constants.all_props.add(box1, box2)
 # Цикл игры
 running = True
 while running:
     # Держим цикл на правильной скорости
     clock.tick(Constants.FPS)
+    Constants.timeofgame += 0.016
     # Ввод процесса (события)
     for event in pygame.event.get():
-        # проверка для закрытия окна
+        if event.type == pygame.MOUSEBUTTONDOWN:#если нажимаем на лкм то очки растут
+            Constants.score += 1
         if event.type == pygame.QUIT:
             running = False
 
     # Обновление
     Constants.all_sprites.update()
-    Constants.all_props.update
+    
     # Рендеринг
     screen.fill(Colours.BLACK)
     Constants.all_sprites.draw(screen)
-    Constants.all_props.draw(screen)
+    draw_text(screen, str(Constants.score), 30, Constants.WIDTH / 2, 10)#создаём тексты
+    draw_text(screen,str( int(Constants.timeofgame)), 30, Constants.WIDTH - 27, Constants.HEIGHT - 30)
     # После отрисовки всего, переворачиваем экран
     pygame.display.flip()
 
