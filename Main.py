@@ -21,16 +21,18 @@ pygame.display.set_caption("кликер")
 clock = pygame.time.Clock()
 player = Player()
 Constants.all_sprites.add(player)
+timeofgame = 0
+score = 0
 # Цикл игры
 running = True
 while running:
     # Держим цикл на правильной скорости
     clock.tick(Constants.FPS)
-    Constants.timeofgame += 0.016
+    timeofgame += 0.015
     # Ввод процесса (события)
     for event in pygame.event.get():
         if event.type == pygame.MOUSEBUTTONDOWN:#если нажимаем на лкм то очки растут
-            Constants.score += 1
+            score += 1
         if event.type == pygame.QUIT:
             running = False
 
@@ -40,8 +42,8 @@ while running:
     # Рендеринг
     screen.fill(Colours.BLACK)
     Constants.all_sprites.draw(screen)
-    draw_text(screen, str(Constants.score), 30, Constants.WIDTH / 2, 10)#создаём тексты
-    draw_text(screen,str( int(Constants.timeofgame)), 30, Constants.WIDTH - 27, Constants.HEIGHT - 30)
+    draw_text(screen, str(score), 30, Constants.WIDTH / 2, 10)#создаём тексты
+    draw_text(screen,str( int(timeofgame)), 30, Constants.WIDTH - 27, Constants.HEIGHT - 30)
     # После отрисовки всего, переворачиваем экран
     pygame.display.flip()
 
