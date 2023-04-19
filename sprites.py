@@ -81,7 +81,7 @@ class Wall(pg.sprite.Sprite):
 
 class Water(pg.sprite.Sprite):
     def __init__(self, game, x, y):
-        self.groups = game.all_sprites, game.walls
+        self.groups = game.all_sprites
         pg.sprite.Sprite.__init__(self, self.groups)
         self.game = game
         self.image = Utils.LoadImage("water.png", 64, 64)
