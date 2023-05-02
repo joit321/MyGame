@@ -11,6 +11,7 @@ from Sprites.Tiles import Water
 from Core import Map
 from Core import Camera
 from Sprites.Creatures import Player
+from Sprites.Tiles import Ironblock
 
 class Game:
     def __init__(self):
@@ -28,10 +29,13 @@ class Game:
         self.all_sprites = pg.sprite.Group()
         self.walls = pg.sprite.Group()
         self.waters = pg.sprite.Group()
+        self.items = pg.sprite.Group()
         for row, tiles in enumerate(self.map.data):
             for col, tile in enumerate(tiles):
                 if tile == '1':
                     Wall.Wall(self, col, row)
+                if tile == '3':
+                    Ironblock.Ironblock(self, col, row)
                 if tile == 'P':
                     self.player = Player.Player(self, col, row)
                 if tile == '2':
@@ -64,7 +68,7 @@ class Game:
 
     def draw(self):
         self.screen.fill(BGCOLOR)
-        self.draw_grid()
+        #self.draw_grid()
         for sprite in self.all_sprites:
             self.screen.blit(sprite.image, self.camera.apply(sprite))
         pg.display.flip()

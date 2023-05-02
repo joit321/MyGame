@@ -1,5 +1,10 @@
 import pygame as pg
 from settings import *
+import pygame
+import os
+import math
+
+from Utility.ImageUtils import ImageUtils
 vec = pg.math.Vector2
 
 class Player(pg.sprite.Sprite):
@@ -7,8 +12,8 @@ class Player(pg.sprite.Sprite):
         self.groups = game.all_sprites
         pg.sprite.Sprite.__init__(self, self.groups)
         self.game = game
-        self.image = pg.Surface((TILESIZE, TILESIZE))
-        self.image.fill(YELLOW)
+        pathToFile = os.path.join(RECOURCES_PATH, "Tiles", "kolobok.png")
+        self.image = ImageUtils.LoadImage(pathToFile, TILESIZE / 1.5, TILESIZE / 1.5)
         self.rect = self.image.get_rect()
         self.vel = vec(0, 0)
         self.pos = vec(x, y) * TILESIZE
@@ -46,7 +51,8 @@ class Player(pg.sprite.Sprite):
                     self.pos.y = hits[0].rect.bottom
                 self.vel.y = 0
                 self.rect.y = self.pos.y
-
+    
+    
     def update(self):
         self.get_keys()
         self.pos += self.vel * self.game.dt
