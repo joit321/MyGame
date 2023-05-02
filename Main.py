@@ -4,10 +4,13 @@
 # Video link: https://youtu.be/FVLRUmkV27Q
 import pygame as pg
 import sys
-from os import path
+import os
 from settings import *
-from sprites import *
-from tilemap import *
+from Sprites.Tiles import Wall
+from Sprites.Tiles import Water
+from Core import Map
+from Core import Camera
+from Sprites.Creatures import Player
 
 class Game:
     def __init__(self):
@@ -18,8 +21,7 @@ class Game:
         self.load_data()
 
     def load_data(self):
-        game_folder = path.dirname(__file__)
-        self.map = Map(path.join(game_folder, 'map2.txt'))
+        self.map = Map.Map((os.path.join(MAPS_PATH, "map2.txt")))
 
     def new(self):
         # initialize all variables and do all the setup for a new game
@@ -29,12 +31,12 @@ class Game:
         for row, tiles in enumerate(self.map.data):
             for col, tile in enumerate(tiles):
                 if tile == '1':
-                    Wall(self, col, row)
+                    Wall.Wall(self, col, row)
                 if tile == 'P':
-                    self.player = Player(self, col, row)
+                    self.player = Player.Player(self, col, row)
                 if tile == '2':
-                    Water(self, col, row)
-        self.camera = Camera(self.map.width, self.map.height)
+                   Water.Water(self, col, row)
+        self.camera = Camera.Camera(self.map.width, self.map.height)
 
     def run(self):
         # game loop - set self.playing = False to end the game

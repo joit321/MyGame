@@ -1,18 +1,6 @@
 import pygame as pg
 from settings import *
 vec = pg.math.Vector2
-import os
-import pygame
-
-GAME_PATH = os.path.dirname(__file__)
-RECOURCES_PATH = os.path.join(GAME_PATH, 'Texture')
-
-class Utils:
-    @staticmethod
-    def LoadImage(imageName : str, width: int, heigth : int):
-        player_img = pygame.image.load(os.path.join(RECOURCES_PATH, imageName)).convert()
-        player_img = pygame.transform.scale(player_img, (heigth, width))
-        return player_img
 
 class Player(pg.sprite.Sprite):
     def __init__(self, game, x, y):
@@ -66,27 +54,3 @@ class Player(pg.sprite.Sprite):
         self.collide_with_walls('x')
         self.rect.y = self.pos.y
         self.collide_with_walls('y')
-
-class Wall(pg.sprite.Sprite):
-    def __init__(self, game, x, y):
-        self.groups = game.all_sprites, game.walls
-        pg.sprite.Sprite.__init__(self, self.groups)
-        self.game = game
-        self.image = Utils.LoadImage("земля.png", 64, 64)
-        self.rect = self.image.get_rect()
-        self.x = x
-        self.y = y
-        self.rect.x = x * TILESIZE
-        self.rect.y = y * TILESIZE
-
-class Water(pg.sprite.Sprite):
-    def __init__(self, game, x, y):
-        self.groups = game.all_sprites
-        pg.sprite.Sprite.__init__(self, self.groups)
-        self.game = game
-        self.image = Utils.LoadImage("water.png", 64, 64)
-        self.rect = self.image.get_rect()
-        self.x = x
-        self.y = y
-        self.rect.x = x * TILESIZE
-        self.rect.y = y * TILESIZE

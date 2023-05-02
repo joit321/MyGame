@@ -1,4 +1,7 @@
 # define some colors (R, G, B)
+import os
+
+
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 DARKGREY = (40, 40, 40)
@@ -20,3 +23,10 @@ GRIDHEIGHT = HEIGHT / TILESIZE
 
 # Player settings
 PLAYER_SPEED = 300
+
+GAME_PATH = os.path.dirname(__file__)
+RECOURCES_PATH = os.path.join(GAME_PATH, 'Res')
+MAPS_PATH = os.path.join(GAME_PATH, 'Maps')
+TILE_RESOURCES_PATH = os.path.join(RECOURCES_PATH, 'Tiles')
+ITEMS_RESOURCES_PATH = os.path.join(RECOURCES_PATH, 'Items')
+CREATURES_RESOURCES_PATH = os.path.join(RECOURCES_PATH, 'Creatures')
